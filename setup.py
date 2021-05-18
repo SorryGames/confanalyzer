@@ -7,13 +7,12 @@ with open("README.md", "r") as fh:
 setuptools.setup(
      name='confanalyzer',  
      version='0.1',
-     scripts=['dokr'] ,
-     author="Deepak Kumar",
-     author_email="deepak.kumar.iet@gmail.com",
-     description="A Docker and AWS utility package",
+     author="Solidex",
+     author_email="info@solidex.by",
+     description="Analyzer for configuration files",
      long_description=long_description,
    long_description_content_type="text/markdown",
-     url="https://github.com/javatechy/dokr",
+     url="http://git:3000/Solidex/confanalyzer",
      packages=setuptools.find_packages(),
      classifiers=[
          "Programming Language :: Python :: 3",

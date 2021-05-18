@@ -1,0 +1,8 @@
+uuid
+shlex
+yaml
+os
+copy
+jinja2  
+webbrowser
+sys

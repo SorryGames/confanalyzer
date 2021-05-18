@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 import uuid, shlex, yaml, os, copy
 from jinja2 import Template  
