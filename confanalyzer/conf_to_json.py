@@ -149,9 +149,6 @@ def _from_cli_to_object(content):
             python_content += [ "'{}': '{}', ".format(line[1], " ".join(line[2:])) ]
     python_content += [ "}" ]
     python_content = " ".join(python_content)
-    print("".join(content))
-    print(python_content)
-    print()
     return eval(python_content)
 
 
