@@ -6,12 +6,9 @@ This project is designed as pip-package.
 ### Description
 
 ### How to run
-1. Clone the repository to local environment:
-> `git clone http://git:3000/Solidex/confanalyzer`
+1. Install as pip-package:
+> `pip3 install git+http://git.solidex.minsk.by:3000/Solidex/confanalyzer.git`
 
-2. Install as pip-package:
-> `pip3 install -e confanalyzer`
-
-3. Run to analyze:
+2. Run to analyze:
 > `python3 -m confanalyzer fg.conf`
 
