@@ -1,47 +1,10 @@
 #!/usr/bin/env python3
 
-import uuid, shlex, yaml, os, copy
-from jinja2 import Template  
+import uuid, shlex, os
 import webbrowser
 import sys
 
 
-TAB_WIDTH = 4
-CONFIG_CALLS = [
-    'system interface',
-    'system admin',
-    'system console',
-    'system global',
-    'firewall address',
-    'firewall policy',
-    'router static',
-    'router ospf',
-    'router bgp',
-    'dlp rule'
-]
-NEED_MULTIPLE_QUOTES = [
-    'vdom',
-    'srcintf',
-    'dstintf',
-    'srcaddr',
-    'dstaddr'
-]
-NEED_QUOTES = [
-    'alias',
-    'device',
-    'redistribute',
-    'redistribute6',
-    'associated-interface',
-    'server',
-    'edit',
-    'name',
-    'interface',
-    'description',
-    'accprofile',
-    'comments',
-    'comment',
-    'password'
-]
 SET_GROUP = [
     "allowaccess",
     "srcintf",
@@ -50,6 +13,13 @@ SET_GROUP = [
     "dstaddr",
     "service"
 ]
+
+
+def open_carefully(filename, mode="r"):
+    try:
+        return open(filename, mode)
+    except: 
+        return None
 
 
 def _standard_form(content):
@@ -204,13 +174,6 @@ def _correct_vdom_sections(content):
     return content_b
 
 
-def open_carefully(filename, mode="r"):
-    try:
-        return open(filename, mode)
-    except: 
-        return None
-
-
 def _get_from_config(source, **kwargs):
     file = open_carefully(source, "r")
     #
@@ -222,7 +185,6 @@ def _get_from_config(source, **kwargs):
     answer = _update_vdom_sections(answer)
     #
     return _from_cli_to_object(answer)
-
 
 
 def _proccess_request(action, **kwargs):
