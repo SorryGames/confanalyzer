@@ -120,6 +120,7 @@ def _from_object_to_cli(obj, spaces=0):
 
 def _from_cli_to_object(content):
     python_content = [ "{" ]
+    id_counter = 0
     for init_line in content:
         line = _standard_form(init_line)
         if line == []:
@@ -134,9 +135,11 @@ def _from_cli_to_object(content):
             python_content += [ "'{}': [{{".format(" ".join(line[1:])) ]
         if line[0] == "end":
             python_content += [ "}]," ]
+            id_counter = 0
         #
         if line[0] == "edit":
-            python_content += [ "'{}': {{".format(" ".join(line[1:])) ]
+            python_content += [ "'[{}]___{}': {{".format(id_counter, " ".join(line[1:])) ]
+            id_counter += 1
         if line[0] == "next":
             python_content += [ "}," ]
         #
