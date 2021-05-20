@@ -52,7 +52,7 @@ global[0][0]["system interface"]
 
 2. Show `interface`,`vdom`,`allowaccess` for all interfaces: 
 ```
-global[0][0]["system interface"][0].entries().({interface: key, ...value}).[$["allowaccess"]].({interface: $["interface"], allowaccess: $["allowaccess"], ip:$["ip"]})
+global[0][0]["system interface"][0].entries().({int: key, ...value}).[$["allowaccess"]].({interface: $["int"], allowaccess: $["allowaccess"], ip:$["ip"]})
 ```
 
 3. Show security profile configuration for all VDOMs:
