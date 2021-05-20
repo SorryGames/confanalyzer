@@ -2,6 +2,7 @@
 
 import uuid, shlex, os
 import webbrowser
+import tempfile
 import sys
 
 
@@ -194,18 +195,18 @@ def _proccess_request(action, **kwargs):
 
 def run_module(src):
     #
-    if src.endswith('.conf'):
-        dst = src[:-5] + ".json"  # test.conf -> test.json
-    else:
-        dst = src + ".json"
+    dst = tempfile.NamedTemporaryFile(delete=True)
+    dst_path = dst.name + ".json"
     #
-    json_file = open_carefully(dst, 'w')
+    #
+    #
+    json_file = open_carefully(dst_path, 'w')
     content = str(_proccess_request(action="get", source=src))  # object to string
     content = content.replace("'", '"')  # replace '' to ""
     json_file.write(content)  # write JSON to destination file
     json_file.close()
     #
-    webbrowser.open(dst)  # open created file in default browser
+    webbrowser.open(dst_path)  # open created file in default browser
     return 0
 
 
