@@ -29,7 +29,7 @@ Some use cases with Jora queries:
 2. Show all interfaces:
 > `@['system interface']`
 
-3 Show only IP of all interfaces:
+3 Show only `ip` of all interfaces:
 > `@['system interface'][0].values().map("ip")`
 
 ##### VDOM-enabled
