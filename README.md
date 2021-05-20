@@ -21,24 +21,24 @@ For comfortable analyzing you should consider using a JSON viewer, which is avai
 
 Some use cases with Jora queries:
 
-1. VDOM-disabled
+##### VDOM-disabled
 
-1.1 Show webfilter profiles are in use: 
+1. Show webfilter profiles are in use: 
 > `@.map('firewall policy')[0].values().map("webfilter-profle")`
 
-1.2 Show all interfaces:
+2. Show all interfaces:
 > `@['system interface']`
 
-1.3 Show only IP of all interfaces:
+3 Show only IP of all interfaces:
 > `@['system interface'][0].values().map("ip")`
 
-2. VDOM-enabled
+##### VDOM-enabled
 
-2.1 Show antivirus profiles are in use: 
+1. Show antivirus profiles are in use: 
 > `@.entries().({vdom: key, webfilter: [...value[0][0]['firewall policy'][0].values()].map("av-profile")})`
 
-2.2 Show all interfaces:
+2. Show all interfaces:
 > `@["global"][0][0]["system interface"]`
 
-2.3 Show `interface`,`vdom`,`allowaccess` for all interfaces: 
+3. Show `interface`,`vdom`,`allowaccess` for all interfaces: 
 > `global[0][0]["system interface"][0].entries().({interface: key, ...value.[allowaccess].({vdom, allowaccess})})`
