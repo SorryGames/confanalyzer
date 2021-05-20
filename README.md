@@ -27,9 +27,9 @@ Sounds sadly, but Jora (query language for **JSON Discovery**) is not documented
 
 ##### VDOM-disabled
 
-1. Show webfilter profiles are in use: 
+1. Show `action` and `service` of firewall policy: 
 ```
-@.map('firewall policy')[0].values().map("webfilter-profle")
+@['firewall policy'][0].values().({name: $["name"], action: $["action"], services: $["service"]})
 ```
 
 2. Show all interfaces:
@@ -37,24 +37,30 @@ Sounds sadly, but Jora (query language for **JSON Discovery**) is not documented
 @['system interface']
 ```
 
-3. Show only `ip` of all interfaces:
+3. Show `ip` for interfaces, which have `ip` field:
 ```
-@['system interface'][0].values().map("ip")
+@['system interface'][0].entries().({int: $["key"], ...value}).[$["ip"]].({interface: $["int"], ip: $["ip"]})
 ```
 
 ##### VDOM-enabled
 
-1. Show antivirus profiles are in use: 
+
+1. Show all interfaces:
 ```
-@.entries().({vdom: key, webfilter: [...value[0][0]['firewall policy'][0].values()].map("av-profile")})
+global[0][0]["system interface"]
 ```
 
-2. Show all interfaces:
+2. Show `interface`,`vdom`,`allowaccess` for all interfaces: 
 ```
-@["global"][0][0]["system interface"]
+global[0][0]["system interface"][0].entries().({interface: key, ...value}).[$["allowaccess"]].({interface: $["interface"], allowaccess: $["allowaccess"], ip:$["ip"]})
 ```
 
-3. Show `interface`,`vdom`,`allowaccess` for all interfaces: 
+3. Show security profile configuration for all VDOMs:
 ```
-global[0][0]["system interface"][0].entries().({interface: key, ...value.[allowaccess].({vdom, allowaccess})})
+@.entries().({vdom: key, ...value[0][0]}).({vdom: vdom, webfilter: $["webfilter profile"], av: $["antivirus profile"], ips: $["ips sensor"], dnsfilter: $["dnsfilter profile"], dlp: $["dlp sensor"], appcontrol: $["application list"]})
+```
+
+4. Show security profiles which are used in firewall policy:
+```
+@.entries().({vdom: key, profiles: {...value[0][0]["firewall policy"][0].values().({name: $["name"], av: $["av-profile"], webfilter: $["webfilter-profile"], ips: $["ips-sensor"], appcontrol: $["application-list"]}) }  })
 ```
