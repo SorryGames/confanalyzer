@@ -1,6 +1,3 @@
 uuid
 shlex
-os
 webbrowser
-tempfile
-sys
