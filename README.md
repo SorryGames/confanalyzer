@@ -5,7 +5,7 @@ This project is designed as pip-package.
 
 ## Description
 
-This tool is able to convert configuration of FortiGate to JSON format. The converted configuration is saved as `<name>.json` and is opened in browser.
+This tool is able to convert configuration of FortiGate to JSON format. The converted configuration is saved as temporary file and is opened in browser.
 For comfortable analyzing you should consider using a JSON viewer, which is available as an extension in browser.
 
 > Very powerful and useful tool for JSON analyzing: [JSON Discovery](https://github.com/discoveryjs/browser-extension-json-discovery)
