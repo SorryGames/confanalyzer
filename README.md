@@ -32,7 +32,6 @@ Some use cases with Jora queries:
 1.3 Show only IP of all interfaces:
 > `@['system interface'][0].values().map("ip")`
 
-
 2. VDOM-enabled
 
 2.1 Show antivirus profiles are in use: 
