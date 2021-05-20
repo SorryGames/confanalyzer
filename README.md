@@ -19,7 +19,7 @@ For comfortable analyzing you should consider using a JSON viewer, which is avai
 
 ## Jora queries
 
-Some use cases with Jora queries:
+Sounds sadly, but Jora (query language for **JSON Discovery**) is not documented well enough. So, I provided some use cases with Jora queries:
 
 ##### VDOM-disabled
 
