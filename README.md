@@ -18,7 +18,8 @@ pip3 install git+http://git.solidex.minsk.by:3000/Solidex/confanalyzer.git
 
 2. Run to convert:
 ```
-python3 -m confanalyzer examples/fg.conf
+
+python3 -m confanalyzer <fortigate.conf>
 ```
 
 ## Jora queries
