@@ -24,16 +24,13 @@ Sounds sadly, but Jora (query language for **JSON Discovery**) is not documented
 ##### VDOM-disabled
 
 1. Show webfilter profiles are in use: 
-
-`@.map('firewall policy')[0].values().map("webfilter-profle")`
+> `@.map('firewall policy')[0].values().map("webfilter-profle")`
 
 2. Show all interfaces:
-
-`@['system interface']`
+> `@['system interface']`
 
 3. Show only `ip` of all interfaces:
-
-`@['system interface'][0].values().map("ip")`
+> `@['system interface'][0].values().map("ip")`
 
 ##### VDOM-enabled
 
