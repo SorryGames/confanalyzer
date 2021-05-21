@@ -4,6 +4,7 @@ import uuid, shlex, os
 import webbrowser
 import tempfile
 import sys
+import re
 
 
 SET_GROUP = [
@@ -13,6 +14,10 @@ SET_GROUP = [
     "srcaddr",
     "dstaddr",
     "service"
+]
+
+IGNORE_BLOCKS = [
+    ".*config system replacemsg.*"
 ]
 
 
@@ -36,6 +41,7 @@ def _standard_form(content):
 def _from_cli_to_object(content):
     python_content = [ "{" ]
     b_stack = []  # [ [CONFIG, x], [CONFIG, y] ], where x,y -- counter for EDIT blocks within CONFIG
+    # 
     for init_line in content:
         line = _standard_form(init_line)
         if line == []:
@@ -60,12 +66,21 @@ def _from_cli_to_object(content):
             python_content += [ "}," ]
         #
         if line[0] == "set":
-            if init_line.count('"') == 1:
-                init_line = init_line.strip() + '"'
-            line = shlex.split(init_line)
-            if line[1] in SET_GROUP:
-                line[2:] = [ i.replace(" ", "#") for i in sorted(line[2:]) ]
-            python_content += [ "'{}': '{}', ".format(line[1], " ".join(line[2:])) ]
+            #
+            try:
+                b_value = shlex.split(init_line)  
+                # >>> a = "set srcaddr localaddr remoteaddr 'another addr'"
+                # >>> shlex.split(a)
+                # [ 'set', 'srcaddr', 'localaddr', 'remoteaddr', 'another addr' ]
+                # 'srcaddr': [ 'localaddr', 'remoteaddr', 'another addr' ]
+                #
+            except: 
+                b_value = [ line[0], line[1], "cannot parse this" ]
+
+            if len(b_value) == 3:
+                python_content += [ "'{}': '{}', ".format(b_value[1], b_value[2]) ]
+            else:
+                python_content += [ "'{}': {}, ".format(b_value[1], b_value[2:]) ]
     python_content += [ "}" ]
     python_content = " ".join(python_content)
     return eval(python_content)
@@ -89,6 +104,16 @@ def _update_vdom_sections(content):
         line = _standard_form(curline)  # line = [ "config", "system", "console" ]
         #
         if line == []:
+            continue
+        #
+        #
+        # config system replacemsg ... <=== ignore block
+        # end
+        ignore_status = [ bool(re.search(ignoreit, curline)) for ignoreit in IGNORE_BLOCKS ]
+        
+        if True in ignore_status:
+            print("IGNORED: {}".format(curline.strip()))
+            stack_b.append("ignore")
             continue
         #
         #
@@ -126,6 +151,8 @@ def _update_vdom_sections(content):
             continue
         #
         #
+        if "ignore" not in stack_b:
+            content_b.append(curline)       
         #
         #
         if line[0] in [ "config", "edit" ]:
@@ -133,7 +160,6 @@ def _update_vdom_sections(content):
         if line[0] in [ "next", "end" ]:
             stack_b.pop()
         #
-        content_b.append(curline)         
     #
     return content_b
 
