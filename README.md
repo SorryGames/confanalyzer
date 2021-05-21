@@ -69,3 +69,8 @@ global[0][0]["system interface"][0].entries().({int: key, ...value}).[$["allowac
 ```
 @.entries().({vdom: key, static: {...value[0][0]["router static"][0] }, rip: {...value[0][0]["router rip"][0] }, ospf: {...value[0][0]["router ospf"][0] }, bgp: {...value[0][0]["router bgp"][0] }  })
 ```
+
+6. Show security profile groups are used in firewall policy: 
+```
+@.entries().({vdom: key, profiles: {...value[0][0]["firewall policy"][0].values().({group: $["profile-group"], name: $["name"]}) }  })
+```
