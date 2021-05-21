@@ -35,7 +35,7 @@ def _standard_form(content):
 
 def _from_cli_to_object(content):
     python_content = [ "{" ]
-    id_counter = 0
+    b_stack = []  # [ [CONFIG, x], [CONFIG, y] ], where x,y -- counter for EDIT blocks within CONFIG
     for init_line in content:
         line = _standard_form(init_line)
         if line == []:
@@ -48,13 +48,14 @@ def _from_cli_to_object(content):
         #
         if line[0] == "config":
             python_content += [ "'{}': [{{".format(" ".join(line[1:])) ]
+            b_stack.append([line[0], 0])
         if line[0] == "end":
             python_content += [ "}]," ]
-            id_counter = 0
+            b_stack.pop()
         #
         if line[0] == "edit":
-            python_content += [ "'[{}]___{}': {{".format(id_counter, " ".join(line[1:])) ]
-            id_counter += 1
+            python_content += [ "'[{}]___{}': {{".format(b_stack[-1][-1], " ".join(line[1:])) ]
+            b_stack[-1][-1] += 1
         if line[0] == "next":
             python_content += [ "}," ]
         #
