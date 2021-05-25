@@ -57,12 +57,12 @@ global[0][0]["system interface"][0].entries().({int: key, ...value}).[$["allowac
 
 3. Show security profile configuration for all VDOMs:
 ```
-@.entries().({vdom: key, ...value[0][0]}).({vdom: vdom, webfilter: $["webfilter profile"], av: $["antivirus profile"], ips: $["ips sensor"], dnsfilter: $["dnsfilter profile"], dlp: $["dlp sensor"], appcontrol: $["application list"]})
+@.entries().({vdom: key, ...value[0][0]}).({vdom: vdom, sslssh_profile: $["firewall ssl-ssh-profile"], protocol_options: $["firewall profile-protocol-options"], webfilter: $["webfilter profile"], av: $["antivirus profile"], ips: $["ips sensor"], dnsfilter: $["dnsfilter profile"], dlp: $["dlp sensor"], appcontrol: $["application list"]})
 ```
 
 4. Show security profiles which are used in firewall policy:
 ```
-@.entries().({vdom: key, profiles: {...value[0][0]["firewall policy"][0].values().({name: $["name"], av: $["av-profile"], webfilter: $["webfilter-profile"], ips: $["ips-sensor"], appcontrol: $["application-list"]}) }  })
+@.entries().({vdom: key, profiles: {...value[0][0]["firewall policy"][0].values().({name: $["name"], sslssh_profile: $["ssl-ssh-profile"], protocol_options: $["profile-protocol-options"], av: $["av-profile"], webfilter: $["webfilter-profile"], ips: $["ips-sensor"], appcontrol: $["application-list"], spamfilter: $["emailfilter-profile"]}) }  })
 ```
 
 5. Show routing protocols for all VDOMs:

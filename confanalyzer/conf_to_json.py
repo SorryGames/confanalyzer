@@ -28,11 +28,16 @@ def open_carefully(filename, mode="r"):
         return None
 
 
-def _standard_form(content):
-    # content = 'edit "solidex"'
+def _pre_standard_form(content): 
     content = content.replace("'", "")
     content = content.replace('"', '')
     content = content.replace('\\', '')
+    return content
+
+
+def _standard_form(content):
+    # content = 'edit "solidex"'
+    content = _pre_standard_form(content)
     content = content.split()
     # content = [ "edit", "solidex" ]
     return content
@@ -68,7 +73,7 @@ def _from_cli_to_object(content):
         if line[0] == "set":
             #
             try:
-                b_value = shlex.split(init_line)  
+                b_value = [ _pre_standard_form(part) for part in shlex.split(init_line) ]
                 # >>> a = "set srcaddr localaddr remoteaddr 'another addr'"
                 # >>> shlex.split(a)
                 # [ 'set', 'srcaddr', 'localaddr', 'remoteaddr', 'another addr' ]
@@ -243,7 +248,8 @@ def main():
         print("No args with configuration file are attached...")
         exit()
     #
-    run_module(sys.argv[1])
+    for arg in sys.argv[1:]:
+        run_module(arg)
 
 
 if __name__ == '__main__':
