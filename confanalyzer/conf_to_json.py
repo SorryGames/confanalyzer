@@ -19,6 +19,7 @@ SET_GROUP = [
 IGNORE_BLOCKS = [
     ".*config system replacemsg.*",
     ".*application name.*",
+    ".*ips decoder.*"
     ".*ips rule.*"
 ]
 
