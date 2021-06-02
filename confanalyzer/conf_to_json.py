@@ -231,7 +231,8 @@ def _proccess_request(action, **kwargs):
 def run_module(src):
     #
     dst = tempfile.NamedTemporaryFile(delete=False)
-    dst_path = "{}___".format(src) + dst.name + ".json"
+    dst_path = "{}___{}.json".format(dst.name, src)
+    print(dst_path)
     #
     #
     #
