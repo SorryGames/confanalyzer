@@ -70,7 +70,12 @@ global[0][0]["system interface"][0].entries().({int: key, ...value}).[$["allowac
 @.entries().({vdom: key, static: {...value[0][0]["router static"][0] }, rip: {...value[0][0]["router rip"][0] }, ospf: {...value[0][0]["router ospf"][0] }, bgp: {...value[0][0]["router bgp"][0] }  })
 ```
 
-6. Show security profile groups are used in firewall policy as well as profile groups themselves: 
+6. Show security profile groups are used in **IPv4** and **IPv6** policies as well as profile groups themselves: 
 ```
-@.entries().({vdom: key, profiles: {...value[0][0]["firewall policy"][0].values().({group: $["profile-group"], name: $["name"]}) }, profilegroup: {...value[0][0]["firewall profile-group"][0]}  })
+@.entries().({vdom: key, profiles_ipv4: {...value[0][0]["firewall policy"][0].values().({group: $["profile-group"], name: $["name"]}) }, profiles_ipv6: {...value[0][0]["firewall policy6"][0].values().({group: $["profile-group"], name: $["name"]}) }, profilegroup: {...value[0][0]["firewall profile-group"][0]}  })
+```
+
+7. Show **IPv4, IPv6, Proxy, DOS** policies for all VDOMs:
+``` 
+@.entries().({vdom: key, ...value[0][0]}).({vdom: $["vdom"], ipv4: $["firewall policy"], ipv6: $["firewall policy6"], dos: $["firewall DoS-policy"], proxy: $["firewall proxy-policy"]})
 ```
