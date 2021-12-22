@@ -1,0 +1,10 @@
+python3 __init__.py -f ../testing/1.conf && sleep 2 
+python3 __init__.py -f ../testing/2.conf && sleep 2 
+python3 __init__.py -f ../testing/3.conf && sleep 2 
+python3 __init__.py -f ../testing/4.conf && sleep 2 
+python3 __init__.py -f ../testing/5.conf && sleep 2 
+python3 __init__.py -f ../testing/6.conf && sleep 2 
+python3 __init__.py -f ../testing/7.conf && sleep 2 
+python3 __init__.py -f ../testing/8.conf && sleep 2 
+python3 __init__.py -f ../testing/9.conf && sleep 2 
+python3 __init__.py -f ../testing/10.conf && sleep 2 

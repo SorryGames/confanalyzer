@@ -79,3 +79,8 @@ global[0][0]["system interface"][0].entries().({int: key, ...value}).[$["allowac
 ``` 
 @.entries().({vdom: key, ...value[0][0]}).({vdom: $["vdom"], ipv4: $["firewall policy"], ipv6: $["firewall policy6"], dos: $["firewall DoS-policy"], proxy: $["firewall proxy-policy"]})
 ```
+
+8. Show static URL filter configuration for all VDOMs:
+```
+@.entries().({vdom: key, ...value[0][0]}).({vdom: $["vdom"], ipv4: $["webfilter urlfilter"]})
+```

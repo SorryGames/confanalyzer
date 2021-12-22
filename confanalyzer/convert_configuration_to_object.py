@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 
 import uuid, shlex, os
-import webbrowser
-import tempfile
 import sys
 import re
 
@@ -22,13 +20,6 @@ IGNORE_BLOCKS = [
     ".*ips decoder.*",
     ".*ips rule.*"
 ]
-
-
-def open_carefully(filename, mode="r"):
-    try:
-        return open(filename, mode)
-    except: 
-        return None
 
 
 def _pre_standard_form(content): 
@@ -210,51 +201,34 @@ def _correct_vdom_sections(content):
     return content_b
 
 
-def _get_from_config(source, **kwargs):
-    file = open_carefully(source, "r")
+def _normalize_object(config_object):
+    normalized_config_object = []
+    if "root" in config_object:
+        normalized_config_object = config_object
+    else: 
+        normalized_config_object = {"root": [[ config_object ]]}
     #
-    if file is None:
-        return "No such file :("
-    #
-    answer = [ line.replace('\\', '') for line in file.readlines() ]  # remove "\" char from the configuration
-    answer = _correct_vdom_sections(answer)
-    answer = _update_vdom_sections(answer)
-    #
-    return _from_cli_to_object(answer)
+    return normalized_config_object
 
 
-def _proccess_request(action, **kwargs):
-    if action == "get":
-        return _get_from_config(**kwargs)
+# argument: string (configuration data)
+# return: object
+def convert_configuration_to_object(config_string):
+    #
+    config_object = config_string
+    #
+    try:
+        config_object = [ line.replace('\\', '') for line in config_string ]  # remove "\" char from the configuration
+        config_object = _correct_vdom_sections(config_object)
+        config_object = _update_vdom_sections(config_object)
+        config_object = _from_cli_to_object(config_object)
+        config_object = _normalize_object(config_object)
+    except: 
+        config_object = ["Converting is failed..."]
+    #
+    return config_object
 
-
-def run_module(src):
-    #
-    dst = tempfile.NamedTemporaryFile(delete=False)
-    dst_path = "{}___{}.json".format(dst.name, src)
-    print(dst_path)
-    #
-    #
-    #
-    json_file = open_carefully(dst_path, 'w')
-    content = str(_proccess_request(action="get", source=src))  # object to string
-    content = content.replace("'", '"')  # replace '' to ""
-    json_file.write(content)  # write JSON to destination file
-    json_file.close()
-    #
-    webbrowser.open(dst_path)  # open created file in default browser
-    return 0
-
-
-def main():
-    #
-    if len(sys.argv) == 1:
-        print("No args with configuration file are attached...")
-        exit()
-    #
-    for arg in sys.argv[1:]:
-        run_module(arg)
 
 
 if __name__ == '__main__':
-    main()
+    pass
