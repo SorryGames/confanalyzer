@@ -45,9 +45,17 @@ Sounds sadly, but Jora (query language for **JSON Discovery**) is not documented
 ##### VDOM-enabled
 
 
-1. Show all interfaces:
-```
-global[0][0]["system interface"]
+1. Show all profiles configured in VDOM:
+```jora
+@.entries().[$["value"][0][0]["firewall policy"]].({vdom: $["key"], 
+webfilter: [...$["value"][0][0]["firewall policy"][0].values().([$["webfilter-profile"]])],
+antivirus: [...$["value"][0][0]["firewall policy"][0].values().([$["av-profile"]])],
+ips: [...$["value"][0][0]["firewall policy"][0].values().([$["ips-sensor"]])],
+spamfilter: [...$["value"][0][0]["firewall policy"][0].values().([$["emailfilter-profile"]]), ...$["value"][0][0]["firewall policy"][0].values().([$["spamfilter-profile"]])],
+filefilter: [...$["value"][0][0]["firewall policy"][0].values().([$["file-filter-profile"]])],
+appcontrol: [...$["value"][0][0]["firewall policy"][0].values().([$["application-list"]])],
+voiceip: [...$["value"][0][0]["firewall policy"][0].values().([$["voip-profile"]])]
+})
 ```
 
 2. Show `interface`,`vdom`,`allowaccess` for all interfaces: 
