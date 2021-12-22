@@ -25,28 +25,13 @@ python3 -m confanalyzer <fortigate.conf>
 
 Sounds sadly, but Jora (query language for **JSON Discovery**) is not documented well enough. So, I provided some use cases with Jora queries:
 
-##### VDOM-disabled
 
-1. Show `action` and `service` of firewall policy: 
-```
-@['firewall policy'][0].values().({name: $["name"], action: $["action"], services: $["service"]})
-```
 
-2. Show all interfaces:
-```
-@['system interface']
-```
-
-3. Show `ip` for interfaces, which have `ip` field:
-```
-@['system interface'][0].entries().({int: $["key"], ...value}).[$["ip"]].({interface: $["int"], ip: $["ip"]})
-```
-
-##### VDOM-enabled
+##### Use cases
 
 
 1. Show all security profiles configured in VDOM policies:
-```jora
+```
 @.entries().[$["value"][0][0]["firewall policy"]].({vdom: $["key"], 
   webfilter: [...$["value"][0][0]["firewall policy"][0].values().([$["webfilter-profile"]])],
   dnsfilter: [...$["value"][0][0]["firewall policy"][0].values().([$["dnsfilter-profile"]])],
