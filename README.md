@@ -35,20 +35,14 @@ Sounds sadly, but Jora (query language for **JSON Discovery**) is not documented
 @.entries().[$["value"][0][0]["firewall policy"]].({vdom: $["key"], 
   webfilter: [...$["value"][0][0]["firewall policy"][0].values().([$["webfilter-profile"]])],
   dnsfilter: [...$["value"][0][0]["firewall policy"][0].values().([$["dnsfilter-profile"]])],
-
   antivirus: [...$["value"][0][0]["firewall policy"][0].values().([$["av-profile"]])],
   ips: [...$["value"][0][0]["firewall policy"][0].values().([$["ips-sensor"]])],
-  
   spamfilter: [...$["value"][0][0]["firewall policy"][0].values().([$["emailfilter-profile"]]), ...$["value"][0][0]["firewall policy"][0].values().([$["spamfilter-profile"]])],
-  
   filefilter: [...$["value"][0][0]["firewall policy"][0].values().([$["file-filter-profile"]])],
   appcontrol: [...$["value"][0][0]["firewall policy"][0].values().([$["application-list"]])],
-  
   voiceip: [...$["value"][0][0]["firewall policy"][0].values().([$["voip-profile"]])],
   waf: [...$["value"][0][0]["firewall policy"][0].values().([$["waf-profile"]])],
-
   profilegroup: [...$["value"][0][0]["firewall policy"][0].values().([$["profile-group"]])]
-
 })
 ```
 
