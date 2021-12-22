@@ -7,8 +7,8 @@ import argparse
 import webbrowser
 import tempfile
 
-from convert_configuration_to_object import convert_configuration_to_object
-from check_object_for_anomaly import check_object_for_anomaly
+from .convert_configuration_to_object import convert_configuration_to_object
+from .check_object_for_anomaly import check_object_for_anomaly
 
 
 class MyDumper(yaml.Dumper):
@@ -46,7 +46,7 @@ def work(filepath):
     # 1) convert config_string to object
     # 2) look for anomalies in config_object
     config_object = convert_configuration_to_object(config_string=config_string)
-    # anomaly_report = check_object_for_anomaly(config_object=config_object)
+    anomaly_report = check_object_for_anomaly(config_object=config_object)
     #
     # config_object => object of configuration 
     # anomaly_report => object of anomaly list
@@ -63,13 +63,14 @@ def work(filepath):
     json_file.close()
     #
     webbrowser.open(dst_path)  # open created file in default browser
-    # webbrowser.open(_generate_anomaly_report(filename=filename+".conf", data=anomaly_report))  # open created file in default browser
+    webbrowser.open(_generate_anomaly_report(filename=filename+".conf", data=anomaly_report))  # open created file in default browser
     return 0
 
 def _generate_anomaly_report(filename, data):
     #
     # read template
-    with open('./template.html.jinja2') as file_:
+    print(os.path.join(os.path.dirname(__file__),"confanalyzer/template.html.jinja2"))
+    with open(os.path.join(os.path.dirname(__file__),"template.html.jinja2")) as file_:
         template = jinja2.Template(file_.read())
     #
     #
@@ -98,6 +99,6 @@ def _generate_anomaly_report(filename, data):
 
 
 
-if __name__ == "__main__":
-    args = init_parser()
-    work(filepath=args.file)
+# if __name__ == "__main__":
+args = init_parser()
+work(filepath=args.file)

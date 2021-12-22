@@ -1,6 +1,6 @@
 import ipaddress
 import json
-from make_query_to_configuration_object import get_ip_list_from_address_object_list
+from .make_query_to_configuration_object import get_ip_list_from_address_object_list
 
 
 
@@ -201,7 +201,7 @@ Example: Allowing telnet on interfaces is bad practice""",
             #
             if "allowaccess" not in intf_data:
                 continue
-            if ipaddress.IPv4Address("{}".format(intf_data["ip"][0])).is_private:
+            if intf_data.get("ip") is None or ipaddress.IPv4Address("{}".format(intf_data["ip"][0])).is_private:
                 continue
             #
             configured_protocols = intf_data["allowaccess"] if isinstance(intf_data["allowaccess"], list) else [intf_data["allowaccess"]]
