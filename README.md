@@ -67,9 +67,16 @@ profilegroup: $["value"][0][0]["firewall profile-group"][0]
 global[0][0]["system interface"][0].entries().({int: key, ...value}).[$["allowaccess"]].({interface: $["int"], allowaccess: $["allowaccess"], ip:$["ip"]})
 ```
 
-4. Show security profile configuration for all VDOMs:
+4. Show all policies filtered by "srcintf" == "port2":
 ```
-@.entries().({vdom: key, ...value[0][0]}).({vdom: vdom, sslssh_profile: $["firewall ssl-ssh-profile"], protocol_options: $["firewall profile-protocol-options"], webfilter: $["webfilter profile"], av: $["antivirus profile"], ips: $["ips sensor"], dnsfilter: $["dnsfilter profile"], dlp: $["dlp sensor"], appcontrol: $["application list"]})
+@.entries().[$["value"][0][0]["firewall policy"]].({vdom: $["key"], 
+policies: $["value"][0][0]["firewall policy"][0].values().[$["srcintf"] = "port2"].({
+"srcintf": $["srcintf"], 
+"dstintf": $["dstintf"], 
+"service": $["service"], 
+"action": $["action"], 
+})
+})
 ```
 
 5. Show security profiles which are used in firewall policy:
