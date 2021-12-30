@@ -31,10 +31,13 @@ def init_parser():
                         help="Specify a path to configuration file",
                         required=True,
                         type=str)
+    pr.add_argument("-a", "--anomaly-report", 
+                        help="Specify to report about anomalies.", 
+                        action="store_true")
     return pr.parse_args()
 
 
-def work(filepath):
+def work(filepath, anomaly_check):
     #
     #
     # open the configuration file
@@ -46,7 +49,8 @@ def work(filepath):
     # 1) convert config_string to object
     # 2) look for anomalies in config_object
     config_object = convert_configuration_to_object(config_string=config_string)
-    anomaly_report = check_object_for_anomaly(config_object=config_object)
+    if anomaly_check:
+        anomaly_report = check_object_for_anomaly(config_object=config_object)
     #
     # config_object => object of configuration 
     # anomaly_report => object of anomaly list
@@ -63,7 +67,9 @@ def work(filepath):
     json_file.close()
     #
     webbrowser.open(dst_path)  # open created file in default browser
-    webbrowser.open(_generate_anomaly_report(filename=filename+".conf", data=anomaly_report))  # open created file in default browser
+    #
+    if anomaly_check:
+        webbrowser.open(_generate_anomaly_report(filename=filename+".conf", data=anomaly_report))  # open created file in default browser
     return 0
 
 def _generate_anomaly_report(filename, data):
@@ -101,4 +107,4 @@ def _generate_anomaly_report(filename, data):
 
 # if __name__ == "__main__":
 args = init_parser()
-work(filepath=args.file)
+work(filepath=args.file, anomaly_check=args.anomaly_report)
