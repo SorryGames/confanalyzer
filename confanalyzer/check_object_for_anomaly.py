@@ -46,7 +46,7 @@ def _best_practices(config_object):
     except:
         report["anomalies"].append({
             "problem": "Рекомендуется включить автоматический backup конфигурации при наличии изменений.",
-            "solution": "[revision-backup-on-logout] => [enable]",
+            "solution": "config system interface\nrevision-backup-on-logout enable\nend",
         })
 
     return report
@@ -96,6 +96,7 @@ def _check_ha_configuration(config_object):
         report["anomalies"].append({
                 "heartbeats": "[{}]".format(", ".join(heartbeats)),
                 "problem": "Рекомендуется как минимум 2 heartbeat интерфейса между узлами кластера."
+                "solution": "Добавить heartbeat интерфейсы в конфигурацию HA."
         })
 
     # 
@@ -119,7 +120,8 @@ def _check_ha_configuration(config_object):
     if configuration:
         report["anomalies"].append({
                 "heartbeats": "[{}]".format(", ".join(heartbeats)),
-                "problem": "Не рекомендуется настраивать IP & Allowaccess для heartbeat интерфейсов."
+                "problem": "Конфигурация IP & Allowaccess для heartbeat интерфейсов."
+                "solution": "Удалить конфигурацию IP & Allowaccess для heartbeat интерфейсов."
         })
 
 
@@ -191,6 +193,7 @@ def _check_admin_access_on_interfaces(config_object):
                         "interface": "{} [{}]".format(intf_name, intf_data["ip"][0]),
                         "protocols": configured_protocols,
                         "problem": "Административный доступ к устройству по протоколу без шифрования",
+                        "solution": "Разрешить административный доступ к устройству только по защищенным протоколам",
                 })
         #
         #
@@ -212,6 +215,7 @@ def _check_admin_access_on_interfaces(config_object):
                         "interface": "{} [{}]".format(intf_name, intf_data["ip"][0]),
                         "protocols": configured_protocols,
                         "problem": "Административный доступ к устройству на публичном интерфейсе",
+                        "solution": "Ограничить административный доступ на указанном интерфейсе.",
                 })
         #
         #
@@ -232,9 +236,10 @@ def _check_admin_access_on_interfaces(config_object):
         if len(mgmt_interfaces) > 1:
             report["anomalies"].append({
                     "vdom": vdom,
-                    "MGMT interfaces": "{}".format(", ".join(mgmt_interfaces)),
-                    "MGMT protocols": ", ".join(mgmt_protocol),
+                    "interfaces": "{}".format(", ".join(mgmt_interfaces)),
+                    "management protocols": ", ".join(mgmt_protocol),
                     "problem": "Административный доступ к устройству вне сети управления",
+                    "solution": "Разрешить административный доступ к устройству только в сети управления",
             })
 
     #
