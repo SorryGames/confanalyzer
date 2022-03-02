@@ -27,7 +27,7 @@ def check_object_for_anomaly(config_object):
 def _best_practices(config_object):
     report = {
         "name": "Anomaly Module #6: Рекомендации при настройке межсетевого экрана.",
-        "description": ""
+        "description": 
 """список возможных рекомендаций по настройке межсетевого экрана.
 """,
         "anomalies": []
