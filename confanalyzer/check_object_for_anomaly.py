@@ -95,8 +95,8 @@ def _check_ha_configuration(config_object):
     if len(heartbeats) <= 1:
         report["anomalies"].append({
                 "heartbeats": "[{}]".format(", ".join(heartbeats)),
-                "problem": "Рекомендуется как минимум 2 heartbeat интерфейса между узлами кластера."
-                "solution": "Добавить heartbeat интерфейсы в конфигурацию HA."
+                "problem": "Рекомендуется как минимум 2 heartbeat интерфейса между узлами кластера.",
+                "solution": "Добавить heartbeat интерфейсы в конфигурацию HA.",
         })
 
     # 
@@ -120,8 +120,8 @@ def _check_ha_configuration(config_object):
     if configuration:
         report["anomalies"].append({
                 "heartbeats": "[{}]".format(", ".join(heartbeats)),
-                "problem": "Конфигурация IP & Allowaccess для heartbeat интерфейсов."
-                "solution": "Удалить конфигурацию IP & Allowaccess для heartbeat интерфейсов."
+                "problem": "Конфигурация IP & Allowaccess для heartbeat интерфейсов.",
+                "solution": "Удалить конфигурацию IP & Allowaccess для heartbeat интерфейсов.",
         })
 
 
