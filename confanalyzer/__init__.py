@@ -86,7 +86,7 @@ def _generate_anomaly_report(filename, data):
         formatted_data += [{
             "name": test["name"],
             "description": test["description"],
-            "anomalies": [ yaml.dump(el, Dumper=MyDumper, default_flow_style=False) for el in test["anomalies"] ],
+            "anomalies": [ yaml.dump(el, Dumper=MyDumper, default_flow_style=False, allow_unicode=True) for el in test["anomalies"] ],
         }]
     # print(formatted_data)
     # exit()
