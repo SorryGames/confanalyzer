@@ -95,7 +95,7 @@ def _generate_anomaly_report(filename, data):
     dst = tempfile.NamedTemporaryFile(delete=False)
     dst_path = "{}.html".format(dst.name)
     #
-    report_file = open_carefully(dst_path, 'w')
+    report_file = open_carefully(dst_path, 'wb')
     output = template.render(
         filename=filename,
         data=formatted_data
