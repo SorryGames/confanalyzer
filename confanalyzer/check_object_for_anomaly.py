@@ -26,9 +26,9 @@ def check_object_for_anomaly(config_object):
 
 def _best_practices(config_object):
     report = {
-        "name": "Anomaly Module #6: Рекомендации при настройке межсетевого экрана.",
+        "name": "Anomaly Module #6: Рекомендации по настройке межсетевого экрана.",
         "description": 
-"""список возможных рекомендаций по настройке межсетевого экрана.
+"""Cписок рекомендаций по настройке межсетевого экрана.
 """,
         "anomalies": []
     }
@@ -74,10 +74,9 @@ def _best_practices(config_object):
 
 def _check_ha_configuration(config_object):
     report = {
-        "name": "Anomaly Module #5: Проверка конфигурации в части High Availability (HA)",
+        "name": "Anomaly Module #5: Конфигурация High Availability (HA)",
         "description": 
-"""Проверка нежелательной конфигурации HA.
-Например: рекомендуется как минимум 2 heartbeat интерфейса между узлами кластера""",
+"""Проверка корректности конфигурации HA.""",
         "anomalies": []
     }
 
@@ -159,10 +158,10 @@ def _check_admin_access_on_interfaces(config_object):
     ]
     
     report = {
-        "name": "Anomaly Module #4: Проверка аномалий при настройке административного доступа на интерфейсах",
+        "name": "Anomaly Module #4: Административный доступ",
         "description": 
-"""Проверяем наличие аномалий административного доступа, позволяющие несанкционированный доступ к устройству.
-Например: административный доступ по протоколу Telnet повышает вероятность утечки пароля в силу отсутствия шифрования""",
+"""Проверка корректности конфигурации административного доступа, позволяющие несанкционированный доступ к устройству.
+""",
         "anomalies": []
     }
     
@@ -191,7 +190,7 @@ def _check_admin_access_on_interfaces(config_object):
                         "vdom": vdom,
                         "interface": "{} [{}]".format(intf_name, intf_data["ip"][0]),
                         "protocols": configured_protocols,
-                        "problem": "Обнаружены протоколы административного доступа без шифрования: [{}]".format(", ".join(unsafe_protocols)),
+                        "problem": "Административный доступ к устройству по протоколу без шифрования: [{}]".format(", ".join(unsafe_protocols)),
                 })
         #
         #
@@ -212,7 +211,7 @@ def _check_admin_access_on_interfaces(config_object):
                         "vdom": vdom,
                         "interface": "{} [{}]".format(intf_name, intf_data["ip"][0]),
                         "protocols": configured_protocols,
-                        "problem": "Обнаружен административный доступ на публичном интерфесе: [{}]".format(", ".join(nonmgmt_protocol)),
+                        "problem": "Административный доступ к устройству на публичном интерфейсе: [{}]".format(", ".join(nonmgmt_protocol)),
                 })
         #
         #
@@ -235,7 +234,7 @@ def _check_admin_access_on_interfaces(config_object):
                     "vdom": vdom,
                     "MGMT interfaces": "{}".format(", ".join(mgmt_interfaces)),
                     "MGMT protocols": ", ".join(mgmt_protocol),
-                    "problem": "Обнаружено более одного MGMT интерфейса. Точно все верно?",
+                    "problem": "Административный доступ к устройству вне сети управления",
             })
 
     #
@@ -365,7 +364,7 @@ def _webfilter_to_local_resource(config_object):
     report = {
         "name": "Anomaly Module #2: Веб-фильтрация, применяемая к локальному веб-серверу",
         "description": 
-"""Не стоит применять веб-фильтрацию по категориям для запросов к локальному веб-серверу.
+"""Не стоит применять веб-фильтрацию по категориям FortiGuard для запросов к локальному веб-серверу.
 """,
         "anomalies": []
     }
@@ -451,10 +450,10 @@ def _services_and_security_profiles(config_object):
         "voip-profile": voiceip + allprotocols,
     }
     report = {
-        "name": "Anomaly Module #1: Проверка совместимости сервиса фильтрации и протокола",
+        "name": "Anomaly Module #1: Совместимость сервиса фильтрации и протокола",
         "description": 
-"""Сервис фильтрации и протокол передачи данных должны быть совместимы.
-Например: не стоит применять антивирусную защиту к DNS трафику, поскольку DNS трафик не передает файлы.""",
+"""Сервис фильтрации и протокол передачи данных должны быть совместимы, например, не стоит применять антивирус к DNS трафику.
+""",
         "anomalies": []
     }
 
