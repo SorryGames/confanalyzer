@@ -160,7 +160,7 @@ def _check_admin_access_on_interfaces(config_object):
     report = {
         "name": "Test Module #4: Административный доступ",
         "description": 
-"""Проверка корректности конфигурации административного доступа, позволяющие несанкционированный доступ к устройству.
+"""Проверка корректности конфигурации административного доступа на сетевых интерфейсах межсетевого экрана.
 """,
         "anomalies": []
     }
@@ -211,7 +211,7 @@ def _check_admin_access_on_interfaces(config_object):
                         "vdom": vdom,
                         "interface": "{} [{}]".format(intf_name, intf_data["ip"][0]),
                         "protocols": configured_protocols,
-                        "problem": "Административный доступ к устройству на публичном интерфейсе: [{}]".format(", ".join(nonmgmt_protocol)),
+                        "problem": "Административный доступ к устройству на публичном интерфейсе",
                 })
         #
         #
