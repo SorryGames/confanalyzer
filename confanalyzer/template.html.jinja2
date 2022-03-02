@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     
     <!-- SHE fix bug 0530653 -->
-    <title>Anomaly report</title>
+    <title>confanalyzer</title>
 
         <style>
 /*!
@@ -36,31 +36,30 @@
                 <div class="col-md-12">
                     <h1>
                         <!-- SHE fix bug 0530653 -->
-                        <p class="text-center"><strong>Anomaly Report about configuration file</strong></p>
+                        <p class="text-center"><strong>Оценка корректности конфигурации FortiGate</strong></p>
                     </h1>
                 </div>
             </div>
       <div class="row">
                 <!-- SHE -->
                 <div class="col-md-12">
-                    <h3><strong>Configuration file: </strong>{{ filename }}</h3>
+                    <h3><strong>Конфигурационный файл: </strong>{{ filename }}</h3>
                 </div>
 
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <h3><strong>Contact us: </strong>support@solidex.by</h3>
+                    <h3><strong>Контакты: </strong>support@solidex.by</h3>
                 </div>
-
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <h3><strong>Contents:</strong></h3>
+                    <h3><strong>Содержание:</strong></h3>
                 </div>
             </div>
             <ul>
                   {% for el in data %}
-                    <li class="text-left" style="font-size:16px;"><a href="#id1">{{ el.name }}</a></li>
+                    <li class="text-left" style="font-size:16px;"><a href="#{{ el.id }}">{{ el.name }}</a></li>
                   {% endfor %}
             </ul>
             <div class="row"></div>
@@ -74,7 +73,7 @@
 
 
         <!-- SHE fix bug 0530713 -->
-        <div id="id1" class="thumbnail">
+        <div id="{{ el.id }}" class="thumbnail">
             <div class="row">
                 <div class="col-md-2"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEEAAABCCAYAAAAIY7vrAAAABmJLR0QA/wD/AP+gvaeTAAAACXBI
 WXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wMNExQRwAhM2QAAABl0RVh0Q29tbWVudABDcmVhdGVk

@@ -4,6 +4,7 @@ import jinja2
 import yaml
 import json
 import argparse
+import hashlib
 import webbrowser
 import tempfile
 
@@ -86,6 +87,7 @@ def _generate_anomaly_report(filename, data):
         formatted_data += [{
             "name": test["name"],
             "description": test["description"],
+            "id": hashlib.md5(test["description"].encode("utf-8")).hexdigest(),
             "anomalies": [ yaml.dump(el, Dumper=MyDumper, default_flow_style=False, allow_unicode=True) for el in test["anomalies"] ],
         }]
     # print(formatted_data)
