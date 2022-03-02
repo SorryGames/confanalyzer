@@ -15,6 +15,7 @@ def check_object_for_anomaly(config_object):
     report.append(_check_ha_configuration(config_object))
     report.append(_best_practices(config_object))
     #
+    print(_check_admin_access_on_interfaces(config_object))
     # print(json.dumps(report, indent=4, sort_keys=True))
     return report
 
