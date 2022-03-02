@@ -26,7 +26,7 @@ def check_object_for_anomaly(config_object):
 
 def _best_practices(config_object):
     report = {
-        "name": "Anomaly Module #6: Рекомендации по настройке межсетевого экрана.",
+        "name": "Test Module #6: Рекомендации по настройке межсетевого экрана.",
         "description": 
 """Cписок рекомендаций по настройке межсетевого экрана
 """,
@@ -74,7 +74,7 @@ def _best_practices(config_object):
 
 def _check_ha_configuration(config_object):
     report = {
-        "name": "Anomaly Module #5: Конфигурация High Availability (HA)",
+        "name": "Test Module #5: Конфигурация High Availability (HA)",
         "description": 
 """Проверка корректности конфигурации HA.""",
         "anomalies": []
@@ -158,7 +158,7 @@ def _check_admin_access_on_interfaces(config_object):
     ]
     
     report = {
-        "name": "Anomaly Module #4: Административный доступ",
+        "name": "Test Module #4: Административный доступ",
         "description": 
 """Проверка корректности конфигурации административного доступа, позволяющие несанкционированный доступ к устройству.
 """,
@@ -253,7 +253,7 @@ def _check_admin_access_on_interfaces(config_object):
 
 def _unused_vip_objects(config_object):
     report = {
-        "name": "Anomaly Module #3: Неиспользуемые объекты Virtual IP",
+        "name": "Test Module #3: Неиспользуемые объекты Virtual IP",
         "description": 
 """Неиспользуемые объекты Virtual IP необходимо удалять, поскольку маршрут к таким объектам все равно присутствует в таблице маршрутизации. 
 """,
@@ -362,7 +362,7 @@ def _webfilter_to_local_resource(config_object):
     """
 
     report = {
-        "name": "Anomaly Module #2: Веб-фильтрация, применяемая к локальному веб-серверу",
+        "name": "Test Module #2: Веб-фильтрация, применяемая к локальному веб-серверу",
         "description": 
 """Не стоит применять веб-фильтрацию по категориям FortiGuard для запросов к локальному веб-серверу.
 """,
@@ -450,7 +450,7 @@ def _services_and_security_profiles(config_object):
         "voip-profile": voiceip + allprotocols,
     }
     report = {
-        "name": "Anomaly Module #1: Совместимость сервиса фильтрации и протокола",
+        "name": "Test Module #1: Совместимость сервиса фильтрации и протокола",
         "description": 
 """Сервис фильтрации и протокол передачи данных должны быть совместимы, например, не стоит применять антивирус к DNS трафику.
 """,
