@@ -96,10 +96,11 @@ def _generate_anomaly_report(filename, data):
     dst_path = "{}.html".format(dst.name)
     #
     report_file = open_carefully(dst_path, 'w')
-    report_file.write(template.render(
+    output = template.render(
         filename=filename,
         data=formatted_data
-    ))
+    )
+    report_file.write(output.encode("utf-8"))
     report_file.close()
     return dst_path 
 
