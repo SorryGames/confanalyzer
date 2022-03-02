@@ -190,7 +190,7 @@ def _check_admin_access_on_interfaces(config_object):
                         "vdom": vdom,
                         "interface": "{} [{}]".format(intf_name, intf_data["ip"][0]),
                         "protocols": configured_protocols,
-                        "problem": "Административный доступ к устройству по протоколу без шифрования: [{}]".format(", ".join(unsafe_protocols)),
+                        "problem": "Административный доступ к устройству по протоколу без шифрования",
                 })
         #
         #
