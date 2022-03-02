@@ -26,10 +26,10 @@ def check_object_for_anomaly(config_object):
 
 def _best_practices(config_object):
     report = {
-        "name": "Anomaly Module #6: Check some best practices for configuration.",
+        "name": "Anomaly Module #6: Рекомендации при настройке межсетевого экрана.",
         "description": ""
-"""Check some best practices for configuration.
-Example: enable backup on admin logout is a good practice""",
+"""список возможных рекомендаций по настройке межсетевого экрана.
+""",
         "anomalies": []
     }
 
@@ -45,7 +45,7 @@ Example: enable backup on admin logout is a good practice""",
             raise 
     except:
         report["anomalies"].append({
-            "problem": "It's recommended to enable automatic backup on admin logout.",
+            "problem": "Рекомендуется включить автоматический backup конфигурации при наличии изменений.",
             "solution": "[revision-backup-on-logout] => [enable]",
         })
 
@@ -74,10 +74,10 @@ Example: enable backup on admin logout is a good practice""",
 
 def _check_ha_configuration(config_object):
     report = {
-        "name": "Anomaly Module #5: Check High Availability configuration",
+        "name": "Anomaly Module #5: Проверка конфигурации в части High Availability (HA)",
         "description": 
-"""Check unwelcome configuration on HA cluster.
-Example: it's recommended to have at least 2 heartbeat interfaces""",
+"""Проверка нежелательной конфигурации HA.
+Например: рекомендуется как минимум 2 heartbeat интерфейса между узлами кластера""",
         "anomalies": []
     }
 
@@ -96,7 +96,7 @@ Example: it's recommended to have at least 2 heartbeat interfaces""",
     if len(heartbeats) <= 1:
         report["anomalies"].append({
                 "heartbeats": "[{}]".format(", ".join(heartbeats)),
-                "problem": "It's recommended to have at least 2 heartbeat interfaces."
+                "problem": "Рекомендуется как минимум 2 heartbeat интерфейса между узлами кластера."
         })
 
     # 
@@ -120,7 +120,7 @@ Example: it's recommended to have at least 2 heartbeat interfaces""",
     if configuration:
         report["anomalies"].append({
                 "heartbeats": "[{}]".format(", ".join(heartbeats)),
-                "problem": "It's NOT recommended to configure Allowaccess & IP for heartbeat interfaces."
+                "problem": "Не рекомендуется настраивать IP & Allowaccess для heartbeat интерфейсов."
         })
 
 
@@ -159,10 +159,10 @@ def _check_admin_access_on_interfaces(config_object):
     ]
     
     report = {
-        "name": "Anomaly Module #4: Check administrative access on interfaces",
+        "name": "Anomaly Module #4: Проверка аномалий при настройке административного доступа на интерфейсах",
         "description": 
-"""Check unsafe & unwelcome admin access on interfaces.
-Example: Allowing telnet on interfaces is bad practice""",
+"""Проверяем наличие аномалий административного доступа, позволяющие несанкционированный доступ к устройству.
+Например: административный доступ по протоколу Telnet повышает вероятность утечки пароля в силу отсутствия шифрования""",
         "anomalies": []
     }
     
@@ -191,7 +191,7 @@ Example: Allowing telnet on interfaces is bad practice""",
                         "vdom": vdom,
                         "interface": "{} [{}]".format(intf_name, intf_data["ip"][0]),
                         "protocols": configured_protocols,
-                        "problem": "Found unsafe MGMT protocols. Unsafe MGMT protocols are [{}]".format(", ".join(unsafe_protocols)),
+                        "problem": "Обнаружены протоколы административного доступа без шифрования: [{}]".format(", ".join(unsafe_protocols)),
                 })
         #
         #
@@ -212,7 +212,7 @@ Example: Allowing telnet on interfaces is bad practice""",
                         "vdom": vdom,
                         "interface": "{} [{}]".format(intf_name, intf_data["ip"][0]),
                         "protocols": configured_protocols,
-                        "problem": "Found MGMT protocol on interface with public IP. Recommended protocols are [{}]".format(", ".join(nonmgmt_protocol)),
+                        "problem": "Обнаружен административный доступ на публичном интерфесе: [{}]".format(", ".join(nonmgmt_protocol)),
                 })
         #
         #
@@ -235,7 +235,7 @@ Example: Allowing telnet on interfaces is bad practice""",
                     "vdom": vdom,
                     "MGMT interfaces": "{}".format(", ".join(mgmt_interfaces)),
                     "MGMT protocols": ", ".join(mgmt_protocol),
-                    "problem": "Found more than 1 MGMT interfaces",
+                    "problem": "Обнаружено более одного MGMT интерфейса. Точно все верно?",
             })
 
     #
@@ -254,10 +254,10 @@ Example: Allowing telnet on interfaces is bad practice""",
 
 def _unused_vip_objects(config_object):
     report = {
-        "name": "Anomaly Module #3: Unused Virtual IP objects",
+        "name": "Anomaly Module #3: Неиспользуемые объекты Virtual IP",
         "description": 
-"""Several Virtual IPs are confgured but not in use. This could lead to IP connectivity issue.
-Example: Virtual IP is configured but not in use in policies""",
+"""Неиспользуемые объекты Virtual IP необходимо удалять, поскольку маршрут к таким объектам все равно присутствует в таблице маршрутизации. 
+""",
         "anomalies": []
     }
 
@@ -363,10 +363,10 @@ def _webfilter_to_local_resource(config_object):
     """
 
     report = {
-        "name": "Anomaly Module #2: Webfilter is applied to local webserver",
+        "name": "Anomaly Module #2: Веб-фильтрация, применяемая к локальному веб-серверу",
         "description": 
-"""Webfilter is configured to filter connections to the local webserver.
-Example: 192.168.1.10 Webfilter (FortiGuard categories)""",
+"""Не стоит применять веб-фильтрацию по категориям для запросов к локальному веб-серверу.
+""",
         "anomalies": []
     }
 
@@ -451,10 +451,10 @@ def _services_and_security_profiles(config_object):
         "voip-profile": voiceip + allprotocols,
     }
     report = {
-        "name": "Anomaly Module #1: Service & Security Profile compatibility",
+        "name": "Anomaly Module #1: Проверка совместимости сервиса фильтрации и протокола",
         "description": 
-"""Service is explicitly identifying the security profiles you can configure for.
-Example: Antivirus profile is applied to DNS traffic""",
+"""Сервис фильтрации и протокол передачи данных должны быть совместимы.
+Например: не стоит применять антивирусную защиту к DNS трафику, поскольку DNS трафик не передает файлы.""",
         "anomalies": []
     }
 
