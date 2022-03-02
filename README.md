@@ -25,42 +25,61 @@ python3 -m confanalyzer <fortigate.conf>
 
 Sounds sadly, but Jora (query language for **JSON Discovery**) is not documented well enough. So, I provided some use cases with Jora queries:
 
-##### VDOM-disabled
-
-1. Show `action` and `service` of firewall policy: 
-```
-@['firewall policy'][0].values().({name: $["name"], action: $["action"], services: $["service"]})
-```
-
-2. Show all interfaces:
-```
-@['system interface']
-```
-
-3. Show `ip` for interfaces, which have `ip` field:
-```
-@['system interface'][0].entries().({int: $["key"], ...value}).[$["ip"]].({interface: $["int"], ip: $["ip"]})
-```
-
-##### VDOM-enabled
 
 
-1. Show all interfaces:
+##### Use cases
+
+
+1. Show all security profiles configured in VDOM policies:
 ```
-global[0][0]["system interface"]
+@.entries().[$["value"][0][0]["firewall policy"]].({vdom: $["key"], 
+  webfilter: [...$["value"][0][0]["firewall policy"][0].values().[$["webfilter-profile"]].([$["webfilter-profile"]])],
+  dnsfilter: [...$["value"][0][0]["firewall policy"][0].values().[$["dnsfilter-profile"]].([$["dnsfilter-profile"]])],
+  antivirus: [...$["value"][0][0]["firewall policy"][0].values().[$["av-profile"]].([$["av-profile"]])],
+  ips: [...$["value"][0][0]["firewall policy"][0].values().[$["ips-sensor"]].([$["ips-sensor"]])],
+  spamfilter: [...$["value"][0][0]["firewall policy"][0].values().[$["emailfilter-profile"]].([$["emailfilter-profile"]]), 
+  				...$["value"][0][0]["firewall policy"][0].values().[$["spamfilter-profile"]].([$["spamfilter-profile"]])],
+  filefilter: [...$["value"][0][0]["firewall policy"][0].values().[$["file-filter-profile"]].([$["file-filter-profile"]])],
+  appcontrol: [...$["value"][0][0]["firewall policy"][0].values().[$["application-list"]].([$["application-list"]])],
+  voiceip: [...$["value"][0][0]["firewall policy"][0].values().[$["voip-profile"]].([$["voip-profile"]])],
+  waf: [...$["value"][0][0]["firewall policy"][0].values().[$["waf-profile"]].([$["waf-profile"]])],
+  profilegroup: [...$["value"][0][0]["firewall policy"][0].values().[$["profile-group"]].([$["profile-group"]])]
+})
 ```
 
-2. Show `interface`,`vdom`,`allowaccess` for all interfaces: 
+
+2. Show configuration for all security profiles in VDOM:
+```
+@.entries().[$["value"][0][0]["firewall policy"]].({vdom: $["key"], 
+webfilter: $["value"][0][0]["webfilter profile"][0],
+dnsfilter: $["value"][0][0]["dnsfilter profile"][0],
+antivirus: $["value"][0][0]["antivirus profile"][0],
+ips: $["value"][0][0]["ips sensor"][0],
+spamfilter: {...$["value"][0][0]["spamfilter profile"][0], ...$["value"][0][0]["emailfilter profile"][0]},
+appcontrol: $["value"][0][0]["application list"][0],
+waf: $["value"][0][0]["waf profile"][0],
+profilegroup: $["value"][0][0]["firewall profile-group"][0]
+})
+```
+
+3. Show `interface`,`vdom`,`allowaccess` for all interfaces: 
 ```
 global[0][0]["system interface"][0].entries().({int: key, ...value}).[$["allowaccess"]].({interface: $["int"], allowaccess: $["allowaccess"], ip:$["ip"]})
 ```
 
-3. Show security profile configuration for all VDOMs:
+4. Show all policies filtered by "srcintf" == "port2":
 ```
-@.entries().({vdom: key, ...value[0][0]}).({vdom: vdom, sslssh_profile: $["firewall ssl-ssh-profile"], protocol_options: $["firewall profile-protocol-options"], webfilter: $["webfilter profile"], av: $["antivirus profile"], ips: $["ips sensor"], dnsfilter: $["dnsfilter profile"], dlp: $["dlp sensor"], appcontrol: $["application list"]})
+@.entries().[$["value"][0][0]["firewall policy"]].({vdom: $["key"], 
+policies: $["value"][0][0]["firewall policy"][0].values().[$["srcintf"] = "port2"].({
+"srcintf": $["srcintf"], 
+"dstintf": $["dstintf"], 
+"service": $["service"], 
+"action": $["action"], 
+})
+})
 ```
 
-4. Show security profiles which are used in firewall policy:
+5. Show security profiles which are used in firewall policy:
 ```
 @.entries().({vdom: key, profiles: {...value[0][0]["firewall policy"][0].values().({name: $["name"], sslssh_profile: $["ssl-ssh-profile"], protocol_options: $["profile-protocol-options"], av: $["av-profile"], webfilter: $["webfilter-profile"], ips: $["ips-sensor"], appcontrol: $["application-list"], spamfilter: $["emailfilter-profile"]}) }  })
 ```
