@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='confanalyzer',  
-    version='0.2',
+    version='0.2.1',
     data_files=[("", ["confanalyzer/template.html.jinja2"])],
     include_package_data=True,
     author="Solidex",
