@@ -88,7 +88,7 @@ def _generate_anomaly_report(filename, data):
             "name": test["name"],
             "description": test["description"],
             "id": hashlib.md5(test["description"].encode("utf-8")).hexdigest(),
-            "anomalies": [ yaml.dump(el, Dumper=MyDumper, default_flow_style=False, allow_unicode=True) for el in test["anomalies"] ],
+            "anomalies": [ yaml.dump(el, Dumper=MyDumper, default_flow_style=False, allow_unicode=True, width=100) for el in test["anomalies"] ],
         }]
     # print(formatted_data)
     # exit()
