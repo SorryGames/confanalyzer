@@ -100,6 +100,7 @@ def _generate_anomaly_report(filename, data):
         filename=filename,
         data=formatted_data
     )
+    print(output)
     report_file.write(output.encode("utf-8"))
     report_file.close()
     return dst_path 
