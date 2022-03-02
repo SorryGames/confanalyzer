@@ -46,7 +46,7 @@ def _best_practices(config_object):
     except:
         report["anomalies"].append({
             "problem": "Рекомендуется включить автоматический backup конфигурации при наличии изменений.",
-            "solution": "config system interface\nrevision-backup-on-logout enable\nend",
+            "solution": "config system interface<br>revision-backup-on-logout enable<br>end",
         })
 
     return report
