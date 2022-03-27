@@ -1,19 +1,23 @@
 # Configuration Analyzer
 
+
+### Introduction 
 This project is designed as pip-package.
 > Tested on **Python 3.8.5**
 
-## Description
+### Description
 
-This tool is able to convert configuration of FortiGate to JSON format. The converted configuration is saved as temporary and is opened in browser.
-For comfortable analyzing you should consider using a JSON viewer, which is available as an extension in browser.
+This tool is able to convert configuration of FortiGate to JSON format to simplify analyzing of configuration. 
 
-> Very powerful and useful tool for JSON analyzing: [JSON Discovery](https://github.com/discoveryjs/browser-extension-json-discovery)
+The converted configuration is saved as temporary JSON file and opened in a browser.
+To analyze JSON file through the browser you have to install a JSON viewer which is available as an browser extension.
+
+> I'd recommend you very powerful web browser tool for JSON analyzing: [JSON Discovery](https://github.com/discoveryjs/browser-extension-json-discovery)
 
 ## How to run
 1. Install as pip-package:
 ```
-pip3 install git+http://git.solidex.minsk.by:3000/Solidex/confanalyzer.git
+pip3 install git+<repository url>
 ```
 
 2. Run to convert:
@@ -26,14 +30,12 @@ python3 -m confanalyzer -f <fortigate.conf>
 python3 -m confanalyzer -f <fortigate.conf> -a
 ```
 
-## Jora queries
+### Jora queries
 
-Sounds sadly, but Jora (query language for **JSON Discovery**) is not documented well enough. So, I provided some use cases with Jora queries:
+To extract useful reports about configuration file you can use Jora queries (comes in a bundle with [JSON Discovery](https://github.com/discoveryjs/browser-extension-json-discovery))
 
 
-
-##### Use cases
-
+##### Useful queries
 
 1. Show all security profiles configured in VDOM policies:
 ```
