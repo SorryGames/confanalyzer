@@ -12,7 +12,7 @@ This tool is able to convert configuration of FortiGate to JSON format to simpli
 The converted configuration is saved as temporary JSON file and opened in a browser.
 To analyze JSON file through the browser you have to install a JSON viewer which is available as an browser extension.
 
-> I'd recommend you very powerful web browser tool for JSON analyzing: [JSON Discovery](https://github.com/discoveryjs/browser-extension-json-discovery)
+> I'd recommend you very powerful web browser tool for JSON analyzing [JSON Discovery](https://github.com/discoveryjs/browser-extension-json-discovery)
 
 ## How to run
 1. Install as pip-package:
