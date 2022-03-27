@@ -22,12 +22,12 @@ pip3 install git+<repository url>
 
 2. Run to convert:
 ```
-python3 -m confanalyzer -f <fortigate.conf>
+python3 -m confanalyzer -f <path_to_fg_config>
 ```
 
 3. Run to convert & look for anomalies:
 ```
-python3 -m confanalyzer -f <fortigate.conf> -a
+python3 -m confanalyzer -f <path_to_fg_config> -a
 ```
 
 ### Jora queries
