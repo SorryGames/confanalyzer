@@ -55,7 +55,7 @@ To extract useful reports about configuration file you can use Jora queries (com
 ```
 
 
-2. Show configuration for all security profiles in VDOM:
+2. Show configuration for all security profiles per VDOM:
 ```
 @.entries().[$["value"][0][0]["firewall policy"]].({vdom: $["key"], 
 webfilter: $["value"][0][0]["webfilter profile"][0],
@@ -66,6 +66,16 @@ spamfilter: {...$["value"][0][0]["spamfilter profile"][0], ...$["value"][0][0]["
 appcontrol: $["value"][0][0]["application list"][0],
 waf: $["value"][0][0]["waf profile"][0],
 profilegroup: $["value"][0][0]["firewall profile-group"][0]
+})
+```
+
+4. Show inspection mode for all firewall policies per VDOM
+```
+@.entries().[$["value"][0][0]["firewall policy"]].({vdom: $["key"], 
+policies: $["value"][0][0]["firewall policy"][0].entries().({
+id: $["key"],
+inspectionmode: $["value"]["inspection-mode"] ? "proxy" : "flow"
+})
 })
 ```
 
