@@ -1,4 +1,4 @@
-# Configuration Analyzer
+# ForiOS Configuration Analyzer
 
 
 ### Introduction 
@@ -34,17 +34,17 @@ python3 -m confanalyzer -f <path_to_fg_config> -a
 
 To extract useful reports about configuration file you can use Jora queries (comes in a bundle with [JSON Discovery](https://github.com/discoveryjs/browser-extension-json-discovery))
 
+Here is the list of useful Jora queries:
 
-##### Useful queries
 
-| # | Example      | Description |
+| # | File      | Description |
 | ------- | ----------- | ----------- |
-| 1   | [more](./examples/1_show_security_profiles_which_are_used_in_ipv4_firewall_policies.md)      | Show all security profiles which are used in IPv4 firewall policies (per-VDOM)  |
-| 2   | [more](./examples/2_show_configuration_of_security_profiles.md)   | Show configuration for all security profiles (per-VDOM)    |
-| 3   | [more](./examples/3_show_inspection_mode_for_ipv4_firewall_policies.md)   | Show inspection mode for all IPv4 firewall policies (per-VDOM)    |
-| 4   | [more](./examples/4_show_ip_allowaccess_vdom.md)   | Show `interface`,`vdom`,`allowaccess` attributes for all interfaces    |
-| 5   | [more](./examples/5_show_ipv4_firewall_policies_filtered_by_interface.md)   | Show IPv4 firewall policies filtered by interface name    |
-| 6   | [more](./examples/6_show_security_profiles_for_ipv4_firewall_policies.md)   | Show security profiles for every IPv4 firewall policy    |
+| 1   | [click](./examples/1_show_security_profiles_which_are_used_in_ipv4_firewall_policies.md)      | Show all security profiles which are used in IPv4 firewall policies (per-VDOM)  |
+| 2   | [click](./examples/2_show_configuration_of_security_profiles.md)   | Show configuration for all security profiles (per-VDOM)    |
+| 3   | [click](./examples/3_show_inspection_mode_for_ipv4_firewall_policies.md)   | Show inspection mode for all IPv4 firewall policies (per-VDOM)    |
+| 4   | [click](./examples/4_show_ip_allowaccess_vdom.md)   | Show `interface`,`vdom`,`allowaccess` attributes for all interfaces    |
+| 5   | [click](./examples/5_show_ipv4_firewall_policies_filtered_by_interface.md)   | Show IPv4 firewall policies filtered by interface name    |
+| 6   | [click](./examples/6_show_security_profiles_for_ipv4_firewall_policies.md)   | Show security profiles for every IPv4 firewall policy    |
 
 
 
