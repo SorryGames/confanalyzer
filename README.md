@@ -48,3 +48,9 @@ Here is a list of useful Jora queries for FortiOS configuration analysis:
 | 10  | [click](./examples/10_show_firewall_dos_policies_filtered_by_interface.md)   | Show firewall DoS-policies filtered by interface (per-VDOM)    |
 
 
+
+## TODO
+
+- Automatic testing of Jora queries
+- Clean up project
+- License status
